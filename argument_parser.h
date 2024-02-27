@@ -16,6 +16,6 @@ typedef struct {
     bool flag_a;
     bool flag_e;
 } Flags;
-int parse_arguments(int argc, char **argv, Flags *flags, char **folder_path);
+int parse_arguments(int argc, char **argv, Flags *flags, char *folder_path, char **output_file_path);
 void help();
 #endif //LINUX_LAB_1_AR_ARGUMENT_PARSER_H
