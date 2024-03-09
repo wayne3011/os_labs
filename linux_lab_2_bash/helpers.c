@@ -4,11 +4,11 @@
 #include "helpers.h"
 
 int strchrc(const char *str, char symbol) {
-    int counter = 0;
-    while (*str != '\0') {
-        if(*str == symbol) counter++;
-        str++;
-    }
-    return counter;
+  int counter = 0;
+  while (*str != '\0') {
+    if (*str == symbol)
+      counter++;
+    str++;
+  }
+  return counter;
 }
-
