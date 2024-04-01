@@ -66,6 +66,7 @@ int main() {
       sscanf(input, "exit %d", &processNumber);
       int pid = deleteByNumber(processList, processNumber);
       if (pid >= 0) {
+        kill(pid, SIGTERM);
         printf("Process %d terminated\n", pid);
       } else
         printf("Invalid process number.\n");

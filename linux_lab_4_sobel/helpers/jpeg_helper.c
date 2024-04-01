@@ -2,18 +2,20 @@
 // Created by ackbarca on 31.03.24.
 //
 #include "jpeg_helper.h"
-void applySobelFilter(decompressed_jpeg *image, unsigned int processedHeightStart, unsigned int processedHeightEnd) {
+decompressed_jpeg applySobelFilter(decompressed_jpeg *image, unsigned int processedHeightStart, unsigned int processedHeightEnd) {
     int sobelX[3][3] = {{-1, 0, 1},
                         {-2, 0, 2},
                         {-1, 0, 1}};
     int sobelY[3][3] = {{-1, -2, -1},
                         {0, 0, 0},
                         {1, 2, 1}};
-
-    unsigned char** result = (unsigned char**)malloc((processedHeightEnd -processedHeightStart) * sizeof(unsigned char*));
+    decompressed_jpeg decompressedJpegResutlt;
+    decompressedJpegResutlt.height = processedHeightEnd - processedHeightStart;
+    decompressedJpegResutlt.width = image->width;
+    decompressedJpegResutlt.imageData = (unsigned char**)malloc((processedHeightEnd - processedHeightStart) * sizeof(unsigned char*));
 
     for (int i = processedHeightStart, s = 0; i < processedHeightEnd; i++, s++) {
-        result[s] = (unsigned char*)malloc(image->width * 3);
+        decompressedJpegResutlt.imageData[s] = (unsigned char*)malloc(image->width * 3);
         for (int j = 0; j < image->width; j += 1) {
             int sumX = 0, sumY = 0;
             for (int k = -1; k <= 1; k++) {
@@ -28,17 +30,19 @@ void applySobelFilter(decompressed_jpeg *image, unsigned int processedHeightStar
             }
             int magnitude = abs(sumX) + abs(sumY);
             magnitude = magnitude > 255 ? 255 : magnitude;
-            result[s][j * 3] = result[s][j * 3 + 1] = result[s][j * 3 + 2] = magnitude;
+            decompressedJpegResutlt.imageData[s][j * 3] = decompressedJpegResutlt.imageData[s][j * 3 + 1] = decompressedJpegResutlt.imageData[s][j * 3 + 2] = magnitude;
         }
     }
 
     for (int i = processedHeightStart, s = 0; i < processedHeightEnd; i++, s++) {
         for (int j = 0; j < image->width * 3; j++) {
-            image->imageData[i][j] = result[s][j];
+            image->imageData[i][j] = decompressedJpegResutlt.imageData[s][j];
         }
-        free(result[s]);
+        free(decompressedJpegResutlt.imageData[s]);
     }
-    free(result);
+    free(decompressedJpegResutlt.imageData);
+
+    return decompressedJpegResutlt;
 }
 
 void writeJPEG(const char *filename, const decompressed_jpeg *decompressedImage) {

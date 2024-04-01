@@ -54,15 +54,28 @@ void applySobelFilterMultitasking(decompressed_jpeg* decompressedImage, program_
     routines_args[args.pthread_count - 1].processedHeightEnd = decompressedImage->height;
     pthread_create(threads + args.pthread_count - 1, NULL, applySobelFilterRoutine, routines_args + args.pthread_count - 1);
 
+    sobel_routine_args** resultsImage = (sobel_routine_args**) calloc(args.pthread_count, sizeof(sobel_routine_args*));
     for (int i = 0; i < args.pthread_count; ++i) {
-        void* thread_result;
-        pthread_join(threads[i], &thread_result);
+        pthread_join(threads[i], resultsImage + i);
     }
+
+    for (int i = 0; i < args.pthread_count; ++i) {
+        memmove(decompressedImage->imageData + resultsImage[i]->processedHeightStart, resultsImage[i]->image->imageData, step * sizeof(unsigned char*));
+        free(resultsImage[i]->image);
+        free(resultsImage[i]);
+    }
+    free(resultsImage);
     free(threads);
     free(routines_args);
 };
 
 void* applySobelFilterRoutine(void* args) {
     sobel_routine_args* routine_args = args;
-    applySobelFilter(routine_args->image, routine_args->processedHeightStart, routine_args->processedHeightEnd);
+    decompressed_jpeg* resultJpeg = (decompressed_jpeg*)calloc(1, sizeof(decompressed_jpeg));
+    *resultJpeg = applySobelFilter(routine_args->image, routine_args->processedHeightStart, routine_args->processedHeightEnd);
+    sobel_routine_args* result = calloc(1, sizeof (sobel_routine_args));
+    result->processedHeightStart = routine_args->processedHeightStart;
+    result->processedHeightEnd = routine_args->processedHeightEnd;
+    result->image = resultJpeg;
+    return result;
 }
