@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Linux.Lab.5.Shower.Monitors", "..\Linux.Lab.5.Shower.Monitors\Linux.Lab.5.Shower.Monitors.csproj", "{2D56F770-4E57-4A99-9591-8F690F6F5E03}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Linux.Lab.5.Shower.Monitors", "Linux.Lab.5.Shower.Monitors\Linux.Lab.5.Shower.Monitors.csproj", "{2D56F770-4E57-4A99-9591-8F690F6F5E03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Linux.Lab.5.Shower.Semaphores", "..\Linux.Lab.5.Shower.Semaphores\Linux.Lab.5.Shower.Semaphores.csproj", "{AFDFBA1A-D7E1-4E16-B7D2-9E0D436FB40A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Linux.Lab.5.Shower.Semaphores", "Linux.Lab.5.Shower.Semaphores\Linux.Lab.5.Shower.Semaphores.csproj", "{AFDFBA1A-D7E1-4E16-B7D2-9E0D436FB40A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
