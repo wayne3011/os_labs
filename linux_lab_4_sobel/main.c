@@ -69,10 +69,6 @@ void applySobelFilterMultitasking(decompressed_jpeg *decompressedImage,
     pthread_join(threads[i], (void **)resultsImage + i);
   }
 
-  for (int i = 0; i < decompressedImage->height; ++i) {
-    free(decompressedImage->imageData[i]);
-  }
-
   for (int i = 0; i < args.pthread_count; ++i) {
     memmove(decompressedImage->imageData +
                 resultsImage[i]->processedHeightStart,

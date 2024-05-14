@@ -11,7 +11,7 @@ public class Men : Person
         Console.WriteLine($"{Name} want enter in bathroom. In {DateTime.Now.Millisecond}:{DateTime.Now.Nanosecond}");
         bathroom.MaleEnter();
         Console.WriteLine($"{Name} enter in bathroom. In {DateTime.Now.Millisecond}:{DateTime.Now.Nanosecond}");
-        await Task.Delay(1000 * Random.Shared.Next(1,5));
+        await Task.Delay(10000);
         bathroom.MaleExit();
         Console.WriteLine($"{Name} leave bathroom. In {DateTime.Now.Millisecond}:{DateTime.Now.Nanosecond}");
     }

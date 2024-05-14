@@ -28,8 +28,6 @@ public class UnisexBathroom
 
 
         mutex.Release();
-
-        //maleSem.WaitOne();
     }
 
     public void MaleExit()
@@ -53,8 +51,6 @@ public class UnisexBathroom
         if (femaleCount == 1)
             femaleSem.WaitOne();
         mutex.Release();
-
-        //femaleSem.WaitOne();
     }
 
     public void FemaleExit()
@@ -65,7 +61,6 @@ public class UnisexBathroom
             femaleSem.Release();
         mutex.Release();
 
-        //femaleSem.Release();
     }
 }
 
